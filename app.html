@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pixelle Editor — Remove Watermarks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="nav-left">
+        <a href="index.html" class="logo">Pixe<span>lle</span></a>
+        <div class="credits-pill">
+          ✦ <b id="credit-count">10</b> free cleanups left
+        </div>
+      </div>
+      <div class="nav-right">
+        <button
+          class="nav-btn nav-btn-ghost"
+          id="undo-btn"
+          disabled
+          onclick="doUndo()"
+        >
+          ↩ Undo
+        </button>
+        <button
+          class="nav-btn nav-btn-ghost"
+          id="redo-btn"
+          disabled
+          onclick="doRedo()"
+        >
+          ↪ Redo
+        </button>
+        <button
+          class="nav-btn nav-btn-accent"
+          id="download-btn"
+          disabled
+          onclick="doDownload()"
+        >
+          ⬇ Save
+        </button>
+        <a
+          href="index.html#pricing"
+          class="nav-btn nav-btn-ghost"
+          style="text-decoration: none"
+          >Pro ↗</a
+        >
+      </div>
+    </nav>
+
+    <!-- MOBILE TOOLBAR (visible on small screens instead of side panels) -->
+    <div class="mobile-toolbar" id="mobile-toolbar">
+      <button class="mt-btn" onclick="triggerUpload()">📁 Open</button>
+      <div class="mt-sep"></div>
+      <button
+        class="mt-btn active"
+        data-mode="erase"
+        onclick="setMobileTool(this)"
+      >
+        ⊘ Erase
+      </button>
+      <button class="mt-btn" data-mode="smart" onclick="setMobileTool(this)">
+        ✦ Smart
+      </button>
+      <button class="mt-btn" data-mode="clone" onclick="setMobileTool(this)">
+        ◈ Clone
+      </button>
+      <button class="mt-btn" data-mode="blur" onclick="setMobileTool(this)">
+        ◌ Blur
+      </button>
+      <div class="mt-sep"></div>
+      <button class="mt-btn" onclick="doUndo()">↩</button>
+      <button class="mt-btn" onclick="doRedo()">↪</button>
+      <button class="mt-btn" onclick="openDrawer('brush')">🖌 Brush</button>
+      <button class="mt-btn" onclick="doReset()">↺ Reset</button>
+      <button class="mt-btn" onclick="doDownload()">⬇ Save</button>
+    </div>
+
+    <div class="app-body">
+      <!-- LEFT PANEL (desktop only) -->
+      <div class="panel-left">
+        <div class="panel-section">
+          <div class="panel-label">Image</div>
+          <div class="upload-zone" id="upload-zone">
+            <input type="file" id="file-input" accept="image/*" />
+            <div class="up-icon">🖼️</div>
+            <strong>Drop image here</strong>
+            <p>or click to browse<br />PNG · JPG · WEBP</p>
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <div class="panel-label">Brush Mode</div>
+          <div class="tool-grid">
+            <div
+              class="tool-btn active"
+              data-mode="erase"
+              onclick="setMode(this)"
+            >
+              <span class="t-icon">⊘</span
+              ><span class="t-name">Smart Erase</span>
+            </div>
+            <div class="tool-btn" data-mode="smart" onclick="setMode(this)">
+              <span class="t-icon">✦</span><span class="t-name">AI Sample</span>
+            </div>
+            <div class="tool-btn" data-mode="clone" onclick="setMode(this)">
+              <span class="t-icon">◈</span><span class="t-name">Clone</span>
+            </div>
+            <div class="tool-btn" data-mode="blur" onclick="setMode(this)">
+              <span class="t-icon">◌</span><span class="t-name">Blur</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <div class="panel-label">Brush Settings</div>
+          <div class="slider-row">
+            <div class="slider-label">
+              <span>Size</span><b id="size-v">40px</b>
+            </div>
+            <input
+              type="range"
+              id="size-sl"
+              min="5"
+              max="150"
+              value="40"
+              oninput="
+                brushSize = +this.value;
+                document.getElementById('size-v').textContent =
+                  this.value + 'px';
+              "
+            />
+          </div>
+          <div class="slider-row">
+            <div class="slider-label">
+              <span>Strength</span><b id="str-v">85%</b>
+            </div>
+            <input
+              type="range"
+              id="str-sl"
+              min="1"
+              max="100"
+              value="85"
+              oninput="
+                strength = +this.value / 100;
+                document.getElementById('str-v').textContent = this.value + '%';
+              "
+            />
+          </div>
+          <div class="slider-row">
+            <div class="slider-label">
+              <span>Softness</span><b id="soft-v">50%</b>
+            </div>
+            <input
+              type="range"
+              id="soft-sl"
+              min="0"
+              max="100"
+              value="50"
+              oninput="
+                softness = +this.value / 100;
+                document.getElementById('soft-v').textContent =
+                  this.value + '%';
+              "
+            />
+          </div>
+          <div class="slider-row">
+            <div class="slider-label">
+              <span>Sample Radius</span><b id="samp-v">12px</b>
+            </div>
+            <input
+              type="range"
+              id="samp-sl"
+              min="4"
+              max="60"
+              value="12"
+              oninput="
+                sampleRadius = +this.value;
+                document.getElementById('samp-v').textContent =
+                  this.value + 'px';
+              "
+            />
+          </div>
+          <div class="shortcut-row">
+            <span class="key">[</span
+            ><span style="font-size: 0.6rem; color: var(--muted)">smaller</span>
+            <span class="key">]</span
+            ><span style="font-size: 0.6rem; color: var(--muted)">bigger</span>
+            <span class="key">Ctrl Z</span
+            ><span style="font-size: 0.6rem; color: var(--muted)">undo</span>
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <div class="panel-label">Actions</div>
+          <div class="action-col">
+            <button
+              class="act-btn act-primary"
+              id="dl-btn2"
+              disabled
+              onclick="doDownload()"
+            >
+              ⬇ Download PNG
+            </button>
+            <button
+              class="act-btn act-secondary"
+              id="reset-btn"
+              disabled
+              onclick="doReset()"
+            >
+              ↺ Reset to original
+            </button>
+            <button
+              class="act-btn act-danger"
+              id="clear-btn"
+              disabled
+              onclick="doClear()"
+            >
+              ✕ Clear canvas
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CANVAS -->
+      <div class="canvas-area" id="canvas-area">
+        <div class="empty-state" id="empty-state">
+          <div class="empty-icon">⊘</div>
+          <div class="empty-title">No image loaded</div>
+          <div class="empty-sub">Upload an image to start</div>
+        </div>
+
+        <div id="canvas-wrapper">
+          <canvas id="main-canvas"></canvas>
+          <canvas id="cursor-canvas"></canvas>
+        </div>
+
+        <div class="zoom-bar">
+          <button class="zoom-btn" onclick="setZoom(zoom / 1.2)">−</button>
+          <div class="zoom-pct" id="zoom-pct">100%</div>
+          <button class="zoom-btn" onclick="setZoom(zoom * 1.2)">+</button>
+          <button class="zoom-btn" onclick="fitZoom()" title="Fit">⊡</button>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL (desktop only) -->
+      <div class="panel-right">
+        <div class="panel-section">
+          <div class="panel-label">Image Info</div>
+          <div class="info-row">
+            <span class="info-key">width</span
+            ><span class="info-val" id="inf-w">—</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">height</span
+            ><span class="info-val" id="inf-h">—</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">format</span
+            ><span class="info-val" id="inf-fmt">—</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">size</span
+            ><span class="info-val" id="inf-size">—</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">edits</span
+            ><span class="info-val" id="inf-edits">0</span>
+          </div>
+        </div>
+        <div class="panel-section">
+          <div class="panel-label">Edit History</div>
+          <div class="history-list" id="history-list">
+            <div
+              style="
+                font-size: 0.7rem;
+                color: var(--muted);
+                font-family: &quot;DM Mono&quot;, monospace;
+              "
+            >
+              No edits yet
+            </div>
+          </div>
+        </div>
+        <div class="upgrade-banner">
+          <h4>✦ Unlock AI Inpainting</h4>
+          <p>
+            Pro users get AI-powered background reconstruction — seamless
+            results on complex textures and gradients.
+          </p>
+          <a href="index.html#pricing">Upgrade to Pro →</a>
+        </div>
+        <div class="status-box" id="status-box">
+          <span class="hi">Ready</span><br />Upload an image to start.<br />Paint
+          over watermarks to erase them.
+        </div>
+      </div>
+    </div>
+
+    <!-- MOBILE DRAWER (brush settings) -->
+    <div
+      class="drawer-overlay"
+      id="drawer-overlay"
+      onclick="closeDrawer()"
+    ></div>
+    <div class="panel-drawer" id="panel-drawer">
+      <div class="drawer-handle" onclick="closeDrawer()"></div>
+      <button class="drawer-close" onclick="closeDrawer()">✕</button>
+      <div id="drawer-content"></div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <!-- Hidden file input for mobile -->
+    <input
+      type="file"
+      id="file-input-mobile"
+      accept="image/*"
+      style="display: none"
+    />
+
+    <script src="js/app.js">
+ 
+    </script>
+  </body>
+</html>

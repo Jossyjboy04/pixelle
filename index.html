@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pixelle — AI-Powered Image Cleanup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css">
+ 
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav-logo">Pixe<span>lle</span></a>
+      <div class="nav-links">
+        <a href="#how">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#legal">Legal</a>
+        <a href="#faq">FAQ</a>
+        <a href="app.html" class="nav-cta">Try Free →</a>
+      </div>
+      <button
+        class="nav-menu-toggle"
+        onclick="toggleMobileNav()"
+        aria-label="Menu"
+      >
+        ☰
+      </button>
+    </nav>
+
+    <!-- MOBILE NAV DRAWER -->
+    <div class="mobile-nav" id="mobile-nav">
+      <a href="#how" onclick="closeMobileNav()">How it works</a>
+      <a href="#pricing" onclick="closeMobileNav()">Pricing</a>
+      <a href="#legal" onclick="closeMobileNav()">Legal</a>
+      <a href="#faq" onclick="closeMobileNav()">FAQ</a>
+      <a href="app.html" class="nav-cta">Try Free →</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-badge">
+        <span class="dot"></span> Now with AI-powered inpainting
+      </div>
+      <h1>Remove <em>anything</em><br />from your images</h1>
+      <p class="hero-sub">
+        Erase watermarks, overlays, text, and logos from photos you own —
+        instantly, with results that look completely natural.
+      </p>
+      <div class="hero-actions">
+        <a href="app.html" class="btn-hero btn-hero-primary"
+          >Start for free →</a
+        >
+        <a href="#pricing" class="btn-hero btn-hero-secondary">See pricing</a>
+      </div>
+      <p class="hero-note">
+        No signup required · 10 free cleanups · No watermark added
+      </p>
+
+      <div class="demo-wrap">
+        <div class="demo-bar">
+          <div class="demo-dot"></div>
+          <div class="demo-dot"></div>
+          <div class="demo-dot"></div>
+          <div class="demo-url">app.pixelle.io/editor</div>
+        </div>
+        <div class="demo-inner">
+          <div class="demo-sidebar">
+            <div class="demo-sidebar-title">Tools</div>
+            <div class="demo-tool active">
+              <div class="demo-tool-icon">⊘</div>
+              Smart Erase
+            </div>
+            <div class="demo-tool">
+              <div class="demo-tool-icon">✦</div>
+              AI Fill
+            </div>
+            <div class="demo-tool">
+              <div class="demo-tool-icon">◈</div>
+              Clone
+            </div>
+            <div class="demo-tool">
+              <div class="demo-tool-icon">◌</div>
+              Blur
+            </div>
+            <br />
+            <div class="demo-sidebar-title">Brush</div>
+            <div
+              style="
+                background: var(--border);
+                height: 4px;
+                border-radius: 2px;
+                margin: 0.5rem 0;
+              "
+            >
+              <div
+                style="
+                  background: var(--accent);
+                  width: 60%;
+                  height: 100%;
+                  border-radius: 2px;
+                "
+              ></div>
+            </div>
+            <div
+              style="
+                font-size: 0.72rem;
+                color: var(--ink3);
+                font-family: &quot;DM Mono&quot;, monospace;
+                display: flex;
+                justify-content: space-between;
+              "
+            >
+              <span>Size</span><span>40px</span>
+            </div>
+            <div
+              style="
+                background: var(--border);
+                height: 4px;
+                border-radius: 2px;
+                margin: 0.75rem 0 0.5rem;
+              "
+            >
+              <div
+                style="
+                  background: var(--accent);
+                  width: 85%;
+                  height: 100%;
+                  border-radius: 2px;
+                "
+              ></div>
+            </div>
+            <div
+              style="
+                font-size: 0.72rem;
+                color: var(--ink3);
+                font-family: &quot;DM Mono&quot;, monospace;
+                display: flex;
+                justify-content: space-between;
+              "
+            >
+              <span>Strength</span><span>85%</span>
+            </div>
+          </div>
+          <div class="demo-canvas-area">
+            <div class="demo-image-placeholder">
+              <div class="demo-badge-before">BEFORE</div>
+              <div class="demo-badge-after">AFTER</div>
+              <div class="demo-wm">© SHUTTERSTOCK</div>
+              <div class="demo-erased"></div>
+              <div class="demo-cursor"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how" id="how">
+      <div class="center max-w reveal">
+        <div class="section-label">How it works</div>
+        <div class="section-title">Three steps.<br />Flawless result.</div>
+        <p class="section-sub" style="margin-inline: auto">
+          Pixelle uses a combination of content-aware sampling and AI inpainting
+          to reconstruct the background naturally.
+        </p>
+      </div>
+      <div class="how-grid reveal">
+        <div class="how-card">
+          <div class="how-num">01</div>
+          <div class="how-icon">🖼️</div>
+          <h3>Upload your image</h3>
+          <p>
+            Drag and drop any PNG, JPG or WEBP. Up to 32MP supported on Pro
+            plans. Works entirely in your browser — no file ever leaves your
+            device on the free tier.
+          </p>
+        </div>
+        <div class="how-card">
+          <div class="how-num">02</div>
+          <div class="how-icon">🖌️</div>
+          <h3>Paint over the watermark</h3>
+          <p>
+            Use the Smart Erase brush to paint over anything you want removed.
+            Choose brush size, softness, and strength. Our algorithm samples
+            surrounding pixels in real time.
+          </p>
+        </div>
+        <div class="how-card">
+          <div class="how-num">03</div>
+          <div class="how-icon">✨</div>
+          <h3>AI fills the gap</h3>
+          <p>
+            On Pro and above, our AI inpainting model reconstructs what was
+            behind the watermark — seamlessly blending texture, lighting, and
+            colour from the surrounding area.
+          </p>
+        </div>
+        <div class="how-card">
+          <div class="how-num">04</div>
+          <div class="how-icon">⬇️</div>
+          <h3>Download full resolution</h3>
+          <p>
+            Export as lossless PNG, high-quality JPG, or WEBP. Pro users can
+            download in full original resolution with no Pixelle branding added.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- USE CASES -->
+    <section id="uses" style="padding: 6rem 2rem; background: var(--bg)">
+      <div class="center max-w reveal">
+        <div class="section-label">Who it's for</div>
+        <div class="section-title">Built for<br />real workflows</div>
+        <p class="section-sub" style="margin-inline: auto">
+          Pixelle is designed for legitimate image cleanup — from photographers
+          to businesses.
+        </p>
+      </div>
+      <div class="uses-grid reveal">
+        <div class="use-card">
+          <div class="use-icon" style="background: #fff3ee">📸</div>
+          <h3>Photographers</h3>
+          <p>
+            Remove your own watermarks from proofs before delivering to clients.
+            Batch process shoots in seconds.
+          </p>
+          <span
+            class="use-tag"
+            style="background: rgba(26, 122, 74, 0.08); color: var(--green)"
+            >✓ Fully legal</span
+          >
+        </div>
+        <div class="use-card">
+          <div class="use-icon" style="background: #fff8ee">🏠</div>
+          <h3>Real estate agents</h3>
+          <p>
+            Clean up MLS listing photos — remove date stamps, agency overlays,
+            and old branding from repurposed images you own.
+          </p>
+          <span
+            class="use-tag"
+            style="background: rgba(26, 122, 74, 0.08); color: var(--green)"
+            >✓ Fully legal</span
+          >
+        </div>
+        <div class="use-card">
+          <div class="use-icon" style="background: #f0f9ff">🛍️</div>
+          <h3>E-commerce sellers</h3>
+          <p>
+            Remove sample watermarks from product images you've purchased
+            licences for. Clean product shots convert better.
+          </p>
+          <span
+            class="use-tag"
+            style="background: rgba(26, 122, 74, 0.08); color: var(--green)"
+            >✓ With valid licence</span
+          >
+        </div>
+        <div class="use-card">
+          <div class="use-icon" style="background: #fff3f3">🖼️</div>
+          <h3>Photo restoration</h3>
+          <p>
+            Restore old family photos with scanned text overlays, timestamps, or
+            lab watermarks from the original print.
+          </p>
+          <span
+            class="use-tag"
+            style="background: rgba(26, 122, 74, 0.08); color: var(--green)"
+            >✓ Fully legal</span
+          >
+        </div>
+        <div class="use-card">
+          <div class="use-icon" style="background: #f5fff0">📺</div>
+          <h3>Video thumbnail cleanup</h3>
+          <p>
+            Remove channel bugs, lower-thirds watermarks, and logo bugs from
+            screenshots of your own broadcast content.
+          </p>
+          <span
+            class="use-tag"
+            style="background: rgba(26, 122, 74, 0.08); color: var(--green)"
+            >✓ Own content only</span
+          >
+        </div>
+        <div class="use-card">
+          <div class="use-icon" style="background: #fafff0">🎨</div>
+          <h3>Designers & agencies</h3>
+          <p>
+            Prepare client-approved mockup assets by cleaning up imagery from
+            licensed stock packs and photo libraries.
+          </p>
+          <span
+            class="use-tag"
+            style="background: rgba(26, 122, 74, 0.08); color: var(--green)"
+            >✓ With valid licence</span
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing" id="pricing">
+      <div class="center reveal">
+        <div class="section-label">Pricing</div>
+        <div class="section-title">Simple, honest pricing.</div>
+        <p class="section-sub" style="margin-inline: auto">
+          Start free. Scale as you grow. Cancel any time.
+        </p>
+      </div>
+      <div class="pricing-grid reveal">
+        <div class="price-card">
+          <div class="price-tier">Starter</div>
+          <div class="price-name">Free</div>
+          <div class="price-desc">
+            Perfect for trying Pixelle on a few images.
+          </div>
+          <div class="price-amount">
+            <span class="price-currency">$</span
+            ><span class="price-value">0</span
+            ><span class="price-period">/forever</span>
+          </div>
+          <div class="price-alt" style="color: transparent">—</div>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li>10 image cleanups per month</li>
+            <li>Up to 4MP image size</li>
+            <li>4 brush modes (erase, smart, clone, blur)</li>
+            <li>Download at 80% quality JPG</li>
+            <li>Browser-based, no account needed</li>
+            <li class="no">AI inpainting</li>
+            <li class="no">Full resolution export</li>
+            <li class="no">Batch processing</li>
+          </ul>
+          <a href="app.html" class="price-btn price-btn-outline"
+            >Start free →</a
+          >
+        </div>
+        <div class="price-card featured">
+          <div class="price-popular">MOST POPULAR</div>
+          <div class="price-tier">Professional</div>
+          <div class="price-name">Pro</div>
+          <div class="price-desc">
+            For individuals and creators who need serious results.
+          </div>
+          <div class="price-amount">
+            <span class="price-currency">$</span
+            ><span class="price-value">12</span
+            ><span class="price-period">/month</span>
+          </div>
+          <div class="price-alt">or $99/yr — save 31%</div>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li>200 AI-powered cleanups/month</li>
+            <li>Up to 24MP image size</li>
+            <li>All brush modes + AI inpainting</li>
+            <li>Full resolution lossless PNG export</li>
+            <li>No Pixelle branding on exports</li>
+            <li>Priority processing queue</li>
+            <li>Undo history (50 steps)</li>
+            <li class="no">Batch processing</li>
+          </ul>
+          <a href="app.html" class="price-btn price-btn-primary">Get Pro →</a>
+        </div>
+        <div class="price-card">
+          <div class="price-tier">Business</div>
+          <div class="price-name">Team</div>
+          <div class="price-desc">
+            For studios, agencies, and growing teams.
+          </div>
+          <div class="price-amount">
+            <span class="price-currency">$</span
+            ><span class="price-value">49</span
+            ><span class="price-period">/month</span>
+          </div>
+          <div class="price-alt">or $399/yr — save 32%</div>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li>Unlimited cleanups</li>
+            <li>Up to 32MP image size</li>
+            <li>Batch processing (up to 50 images)</li>
+            <li>API access (10k calls/month)</li>
+            <li>5 team seats included</li>
+            <li>Usage dashboard & analytics</li>
+            <li>Priority email support</li>
+            <li>Custom brand removal presets</li>
+          </ul>
+          <a
+            href="#"
+            onclick="showToast('Team plan — contact us at hello@pixelle.io')"
+            class="price-btn price-btn-dark"
+            >Get Team →</a
+          >
+        </div>
+      </div>
+
+      <!-- LIFETIME DEAL -->
+      <div
+        class="credits-section reveal"
+        style="
+          margin-top: 2.5rem;
+          max-width: 700px;
+          background: linear-gradient(135deg, #1a1814, #2a2520);
+          border-color: #3a3530;
+        "
+      >
+        <div
+          style="
+            font-size: 0.7rem;
+            font-family: &quot;DM Mono&quot;, monospace;
+            color: var(--accent2);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 0.5rem;
+          "
+        >
+          ⚡ Limited offer
+        </div>
+        <div class="credits-title" style="color: #fff">
+          Lifetime Deal — Pay once, use forever
+        </div>
+        <div class="credits-sub" style="color: rgba(255, 255, 255, 0.5)">
+          One payment. Pro features. No recurring fees. Limited to first 500
+          customers.
+        </div>
+        <div
+          style="
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+          "
+        >
+          <span
+            style="
+              font-size: 1rem;
+              color: rgba(255, 255, 255, 0.4);
+              text-decoration: line-through;
+            "
+            >$288</span
+          >
+          <span
+            style="
+              font-family: &quot;Fraunces&quot;, serif;
+              font-size: 3rem;
+              font-weight: 900;
+              color: #fff;
+              letter-spacing: -0.04em;
+            "
+            >$79</span
+          >
+          <span style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.4)"
+            >one-time</span
+          >
+        </div>
+        <div
+          style="
+            font-size: 0.75rem;
+            color: var(--green);
+            font-family: &quot;DM Mono&quot;, monospace;
+            margin-bottom: 1.5rem;
+          "
+        >
+          Save 72% · 312 of 500 claimed
+        </div>
+        <a
+          href="#"
+          onclick="showToast('Lifetime deal — redirecting to checkout!')"
+          class="price-btn price-btn-primary"
+          style="max-width: 300px; margin: 0 auto; display: block"
+          >Claim Lifetime Deal →</a
+        >
+      </div>
+
+      <!-- PAY PER USE -->
+      <div class="credits-section reveal">
+        <div class="credits-title">Pay-as-you-go Credits</div>
+        <div class="credits-sub">
+          Need more cleanups without a subscription? Buy credits that never
+          expire.
+        </div>
+        <div class="credits-grid">
+          <div class="credit-pack" onclick="selectCredit(this)">
+            <div class="credits-label">credits</div>
+            <div class="credits-num">25</div>
+            <div class="credits-price">$4.99</div>
+            <div class="credits-save"></div>
+          </div>
+          <div class="credit-pack" onclick="selectCredit(this)">
+            <div class="credits-label">credits</div>
+            <div class="credits-num">100</div>
+            <div class="credits-price">$14.99</div>
+            <div class="credits-save">Save 25%</div>
+          </div>
+          <div class="credit-pack selected" onclick="selectCredit(this)">
+            <div class="credits-label">credits</div>
+            <div class="credits-num">300</div>
+            <div class="credits-price">$34.99</div>
+            <div class="credits-save">Save 42%</div>
+          </div>
+          <div class="credit-pack" onclick="selectCredit(this)">
+            <div class="credits-label">credits</div>
+            <div class="credits-num">1000</div>
+            <div class="credits-price">$89.99</div>
+            <div class="credits-save">Save 55%</div>
+          </div>
+        </div>
+        <button
+          onclick="showToast('Redirecting to secure checkout...')"
+          class="price-btn price-btn-primary"
+          style="max-width: 280px; margin: 0 auto"
+        >
+          Buy Credits →
+        </button>
+        <p
+          style="
+            font-size: 0.72rem;
+            color: var(--ink3);
+            margin-top: 0.75rem;
+            font-family: &quot;DM Mono&quot;, monospace;
+          "
+        >
+          Credits never expire · Each AI cleanup = 1 credit · 1-click top-up
+        </p>
+      </div>
+    </section>
+
+    <!-- MONETIZATION -->
+    <section class="monetize" id="monetize">
+      <div class="center max-w reveal">
+        <div class="section-label">Revenue model</div>
+        <div class="section-title" style="color: #fff">
+          How Pixelle makes money<br />(transparently)
+        </div>
+        <p class="section-sub" style="margin-inline: auto">
+          Three revenue streams working together to build a sustainable, growing
+          SaaS.
+        </p>
+      </div>
+      <div class="monetize-grid reveal">
+        <div class="monetize-card">
+          <div class="monetize-stat">$12–$49</div>
+          <div class="monetize-stat-label">per seat / month</div>
+          <h3>Subscription MRR</h3>
+          <p>
+            The core engine. Free users convert to Pro at ~4–8% with good
+            onboarding. Even 500 Pro users = $6,000 MRR. Team plans push LTV 4×
+            higher. Target: grow MRR predictably month-over-month.
+          </p>
+        </div>
+        <div class="monetize-card">
+          <div class="monetize-stat">$4.99–$89</div>
+          <div class="monetize-stat-label">per credit pack</div>
+          <h3>Pay-per-use Credits</h3>
+          <p>
+            Captures occasional users who won't subscribe. Credits never expire,
+            reducing refund requests. High margin — compute cost per cleanup is
+            under $0.01 on self-hosted models. Great for virality: users buy,
+            share, return.
+          </p>
+        </div>
+        <div class="monetize-card">
+          <div class="monetize-stat">$79</div>
+          <div class="monetize-stat-label">one-time lifetime</div>
+          <h3>Lifetime Deal (LTD)</h3>
+          <p>
+            Fast cash injection for early growth. Limited to 500 seats to cap
+            long-term support cost. Platforms like AppSumo or direct campaigns
+            drive strong LTD conversions. Use proceeds to fund AI
+            infrastructure.
+          </p>
+        </div>
+      </div>
+      <div class="max-w reveal revenue-table-wrap">
+        <table class="revenue-table">
+          <thead>
+            <tr>
+              <th>Scenario</th>
+              <th>Free users</th>
+              <th>Pro users</th>
+              <th>Credits/mo</th>
+              <th>Est. MRR</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Launch (month 1)</td>
+              <td>500</td>
+              <td>20</td>
+              <td>$200</td>
+              <td>$440</td>
+            </tr>
+            <tr>
+              <td>Early traction (month 3)</td>
+              <td>2,000</td>
+              <td>100</td>
+              <td>$800</td>
+              <td>$2,000</td>
+            </tr>
+            <tr>
+              <td>Growth (month 6)</td>
+              <td>8,000</td>
+              <td>400</td>
+              <td>$2,500</td>
+              <td>$7,300</td>
+            </tr>
+            <tr>
+              <td>Scale (month 12)</td>
+              <td>25,000</td>
+              <td>1,200</td>
+              <td>$6,000</td>
+              <td>$20,400</td>
+            </tr>
+            <tr>
+              <td>Team plan layer (+)</td>
+              <td>—</td>
+              <td>30 teams</td>
+              <td>—</td>
+              <td>+$1,470</td>
+            </tr>
+          </tbody>
+        </table>
+        <p
+          style="
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.3);
+            font-family: &quot;DM Mono&quot;, monospace;
+            margin-top: 1rem;
+            text-align: center;
+          "
+        >
+          Projections assume 4% free-to-paid conversion, standard SaaS churn of
+          3–5%/month
+        </p>
+      </div>
+    </section>
+
+    <!-- LEGAL -->
+    <div class="legal-section" id="legal">
+      <div class="section-label">Legal framework</div>
+      <div class="legal-title">What's allowed.<br />What's not.</div>
+      <div class="legal-card">
+        <h3>✅ <span class="tag tag-ok">Always OK</span> Your own images</h3>
+        <p>
+          Removing watermarks, overlays, or text from photos or artwork you
+          created yourself is fully legal in all jurisdictions. Pixelle is
+          designed first for this use case.
+        </p>
+      </div>
+      <div class="legal-card">
+        <h3>
+          ✅ <span class="tag tag-ok">OK with licence</span> Licensed stock
+          images
+        </h3>
+        <p>
+          If you have paid for and received a full-use licence to a stock image
+          (e.g. from Shutterstock, Getty, Adobe Stock), removing the watermark
+          version's overlay and using the licensed copy is legitimate. Always
+          use the licence-granted file, not the preview.
+        </p>
+      </div>
+      <div class="legal-card">
+        <h3>
+          ✅ <span class="tag tag-ok">Always OK</span> Timestamp & camera
+          overlays
+        </h3>
+        <p>
+          Removing date stamps, camera watermarks, GPS coordinates, and channel
+          bugs from your own photos and recordings is perfectly legal.
+        </p>
+      </div>
+      <div class="legal-card">
+        <h3>
+          ⚠️ <span class="tag tag-warn">Not permitted</span> Third-party
+          copyright
+        </h3>
+        <p>
+          Using Pixelle to strip watermarks from stock images you have not
+          licensed in order to use them commercially is a violation of the DMCA
+          (Section 1202) and equivalent laws globally. Our Terms of Service
+          prohibit this use. Users who violate this policy are subject to
+          account termination.
+        </p>
+      </div>
+      <div class="legal-card">
+        <h3>
+          📋 <span class="tag tag-warn">By using Pixelle</span> You confirm
+          ownership or licence
+        </h3>
+        <p>
+          At upload, users confirm they own or are licensed to edit the image.
+          This user-generated confirmation is a standard legal mechanism that
+          shifts liability appropriately and is used by virtually all
+          professional image editing services.
+        </p>
+      </div>
+    </div>
+
+    <!-- TESTIMONIALS -->
+    <section style="padding: 6rem 2rem; background: var(--bg2)" id="reviews">
+      <div class="center max-w reveal">
+        <div class="section-label">Reviews</div>
+        <div class="section-title">People love it.</div>
+      </div>
+      <div class="testi-grid reveal">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-text">
+            "I use this every week to clean up client proofs before delivery.
+            The AI fill is genuinely impressive — you can't tell anything was
+            there."
+          </div>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background: #e8521a">AM</div>
+            <div>
+              <div class="testi-name">Adaeze M.</div>
+              <div class="testi-role">Portrait photographer · Lagos</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-text">
+            "We process 200+ product images a week. Pixelle Team's batch mode
+            saved us a full day of editing every single week. The ROI is
+            insane."
+          </div>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background: #1a7a4a">KO</div>
+            <div>
+              <div class="testi-name">Kolade O.</div>
+              <div class="testi-role">E-commerce director · Shopify</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★☆</div>
+          <div class="testi-text">
+            "Clean UI, fast results. I bought the lifetime deal and it's already
+            paid for itself three times over. Wish the free tier had a few more
+            credits."
+          </div>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background: #5a40cc">FN</div>
+            <div>
+              <div class="testi-name">Fatima N.</div>
+              <div class="testi-role">Freelance designer · Dubai</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section style="padding: 6rem 2rem; background: var(--bg)" id="faq">
+      <div class="center max-w reveal">
+        <div class="section-label">FAQ</div>
+        <div class="section-title">Common questions.</div>
+      </div>
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Is it legal to use Pixelle?
+          </div>
+          <div class="faq-a">
+            Yes — when used on images you own or have a valid licence for.
+            Pixelle is a tool like Photoshop; legality depends on what you use
+            it for, not the tool itself. See the Legal section above for a full
+            breakdown.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Are my images uploaded to your servers?
+          </div>
+          <div class="faq-a">
+            On the Free tier, all processing happens entirely in your browser
+            using the Canvas API — nothing is uploaded. On Pro and Team plans,
+            images are sent to our servers for AI inpainting, processed
+            immediately, and deleted within 30 minutes. We never store your
+            images.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            What's the difference between Smart Erase and AI Fill?
+          </div>
+          <div class="faq-a">
+            Smart Erase uses a pixel-sampling algorithm that reads surrounding
+            colours and blends them inward — it's fast, local, and works great
+            on simple backgrounds. AI Fill sends a patch to our inpainting model
+            which understands context, texture, and lighting — it works far
+            better on complex scenes like grass, fabric, or skin.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Do credits expire?</div>
+          <div class="faq-a">
+            Never. Credits you purchase are yours to use at any pace. There's no
+            monthly reset or expiry date — buy once, use whenever.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Can I cancel my subscription?
+          </div>
+          <div class="faq-a">
+            Yes, any time, from your account dashboard with one click. You keep
+            access until the end of your billing period. No cancellation fees,
+            no dark patterns.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Do you offer refunds?
+          </div>
+          <div class="faq-a">
+            We offer a 7-day money-back guarantee on monthly Pro plans, no
+            questions asked. Annual plans get a 14-day guarantee. Credit packs
+            are non-refundable once used but we're always happy to help if
+            something went wrong.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-bottom">
+      <h2>Start cleaning<br />your images today.</h2>
+      <p>
+        No credit card. No signup. 10 free cleanups waiting for you right now.
+      </p>
+      <a href="app.html" class="btn-cta-white">Open the editor →</a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div>
+        <div class="footer-brand">Pixe<span>lle</span></div>
+        <div class="footer-copy">
+          © 2025 Pixelle. All rights reserved.<br />Made for photographers,
+          designers, and creators who own their work.<br /><br /><span
+            style="font-size: 0.7rem; color: rgba(255, 255, 255, 0.25)"
+            >Pixelle does not condone or facilitate the removal of watermarks
+            from images you do not own or hold a valid licence for.</span
+          >
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="app.html">Editor</a><a href="#pricing">Pricing</a
+        ><a href="#legal">Legal</a> <a href="#faq">FAQ</a><a href="#">Privacy</a
+        ><a href="#">Terms</a> <a href="#">API Docs</a
+        ><a href="mailto:hello@pixelle.io">Contact</a>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="js/script.js">
+      
+    </script>
+  </body>
+</html>
